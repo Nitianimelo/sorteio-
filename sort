@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sorteio dos Pernas de Pau</title>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            margin: 0 auto;
+        }
+        input {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sorteio dos Pernas de Pau</h1>
+    <form>
+        <h2>Entre com os nomes dos jogadores:</h2>
+        <div id="playersInputs">
+            <!-- Aqui será adicionado os campos de entrada para os jogadores -->
+        </div>
+        <button type="button" onclick="drawTeams()">Sortear Times</button>
+    </form>
+
+    <h2>Times sorteados:</h2>
+    <div id="teamsResults">
+        <!-- Aqui será mostrado o resultado do sorteio -->
+    </div>
+
+    <script>
+        // Cria campos de entrada para 24 jogadores
+        const playersInputs = document.getElementById('playersInputs');
+        for(let i = 1; i <= 24; i++) {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.placeholder = `Jogador ${i}`;
+            playersInputs.appendChild(input);
+        }
+
+        // Função para fazer o sorteio
+        function drawTeams() {
+            const inputs = playersInputs.getElementsByTagName('input');
+            let players = [];
+
+            // Obtém todos os nomes dos jogadores
+            for(let input of inputs) {
+                players.push(input.value);
+            }
+
+            // Embaralha a lista de jogadores
+            players.sort(() => Math.random() - 0.5);
+
+            const teamsResults = document.getElementById('teamsResults');
+            teamsResults.innerHTML = '';
+
+            // Divide os jogadores em 4 times
+            for(let i = 0; i < 4; i++) {
+                const team = document.createElement('div');
+                team.innerHTML = `<h3>Time ${i + 1}</h3>${players.slice(i * 6, (i + 1) * 6).join(', ')}`;
+                teamsResults.appendChild(team);
+            }
+        }
+    </script>
+</body>
+</html>
